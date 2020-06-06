@@ -1,4 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea
-.idea\workspace.xml
-data
+data/weather_data
+*.pyc
