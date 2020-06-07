@@ -77,7 +77,7 @@ def main():
                         }
             dataframe = pd.DataFrame([dict_mean, dict_min, dict_max])
             final_df = pd.concat([final_df, dataframe], ignore_index=True)
-            for name, use in zip(['Heating', 'Cooling'],
+            for name, use in zip(['Heating|Space', 'Cooling'],
                                  ['TOTAL_HEATING_EJ', 'TOTAL_COOLING_EJ']):
                 mean_EJ = data_consumption.loc[sector, scenario][use, 'percentile_50']
                 est_97_5_EJ = data_consumption.loc[sector, scenario][use, 'percentile_97.5']
@@ -85,24 +85,24 @@ def main():
 
                 dict_mean = {'Model': MODEL_NAME,
                              'Region': 'USA',
-                             'Unit': 'EJ_yr',
-                             'Variable': 'Final Energy|Buildings|' + sector + '|' + name + '|Space',
+                             'Unit': 'EJ/yr',
+                             'Variable': 'Final Energy|Buildings|' + sector + '|' + name,
                              'Scenario': ipcc_scenario_name + ' - 50th percentile',
                              'Year': year_scenario,
                              'Value': mean_EJ,
                              }
                 dict_min = {'Model': MODEL_NAME,
                             'Region': 'USA',
-                            'Unit': 'EJ_yr',
-                            'Variable': 'Final Energy|Buildings|' + sector + '|' + name + '|Space',
+                            'Unit': 'EJ/yr',
+                            'Variable': 'Final Energy|Buildings|' + sector + '|' + name,
                             'Scenario': ipcc_scenario_name + ' - 2.5th percentile',
                             'Year': year_scenario,
                             'Value': est_2_5_EJ,
                             }
                 dict_max = {'Model': MODEL_NAME,
                             'Region': 'USA',
-                            'Unit': 'EJ_yr',
-                            'Variable': 'Final Energy|Buildings|' + sector + '|' + name + '|Space',
+                            'Unit': 'EJ/yr',
+                            'Variable': 'Final Energy|Buildings|' + sector + '|' + name,
                             'Scenario': ipcc_scenario_name + ' - 97.5th percentile',
                             'Year': year_scenario,
                             'Value': est_97_5_EJ,
