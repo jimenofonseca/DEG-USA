@@ -19,7 +19,7 @@ This repository includes some post-processing steps needed to aggregate the orig
 
 ## FAQ
 
-- Where are the resultsstored? A: the results are inside the results folder / final_results.csv
+- Where are the results stored? A: the results are inside the results folder / final_results.csv
 - Where is the orginal database of built areas? A: It is publicly available for commercial and residential buildings [`here`](https://www.eia.gov/consumption/commercial/data/2012/) and [`here`](https://www.eia.gov/consumption/residential/data/2015/)
 - Where is the orginal weather data? A: it is not available to the public. It was obtained from the private vendor [`Meteonorm`](https://meteonorm.com/en/)
 
