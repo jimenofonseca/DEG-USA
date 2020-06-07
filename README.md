@@ -1,5 +1,6 @@
-# DEG-USA-1.0 ![GitHub license](https://img.shields.io/github/license/JIMENOFONSECA/DEG-USA)
- 
+# DEG-USA-1.0
+![GitHub license](https://img.shields.io/github/license/JIMENOFONSECA/DEG-USA) ![Repo Size](https://img.shields.io/github/repo-size/JIMENOFONSECA/DEG-USA)
+
 Forecasting model of building energy consumption for the USA (part of the 6th IPCC report on Climate Change (2021)).
 
 ## How does it work
