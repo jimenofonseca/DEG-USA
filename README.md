@@ -18,7 +18,7 @@ This repository includes some post-processing steps needed to aggregate the orig
 - Clone this repository
 - Install dependencies
 
-  - `EnthalpyGradients==1.0`
+  - [`EnthalpyGradients`](https://pypi.org/project/EnthalpyGradients/)
   - `numpy`
   - `pandas`
 
