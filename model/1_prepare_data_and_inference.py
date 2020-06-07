@@ -25,7 +25,7 @@ SOFTWARE.
 import numpy as np
 import pandas as pd
 from enthalpygradients import EnthalpyGradient
-
+import time
 from model.auxiliary import read_weather_data_scenario
 from model.constants import COP_cooling, COP_heating, RH_base_cooling_perc, RH_base_heating_perc, T_base_cooling_C, \
     T_base_heating_C, ACH_Commercial, ACH_Residential
@@ -156,4 +156,7 @@ def calc_specific_energy_per_major_city(cities_array, climate_region_array, floo
 
 
 if __name__ == "__main__":
+    t0 = time.time()
     main()
+    t1 = round((time.time() - t0)/60,2)
+    print("finished after {} minutes".format(t1))

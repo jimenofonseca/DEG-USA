@@ -26,6 +26,15 @@ import os
 import pandas as pd
 from pointers import WEATHER_DATA_FOLDER_PATH
 
+
+def parse_scenario_name(scenario):
+    mapa = {'A1B': 'Medium Impact',
+            'A2': 'High Impact',
+            'B1': 'Low Impact'
+            }
+    name = scenario.split('_')[-2]
+    return mapa[name]
+
 def read_weather_data_scenario(city, scenario):
     # Quantities
     weather_file_name = city.split(",")[0] + "_" + city.split(", ")[-1] + "-hour.dat"

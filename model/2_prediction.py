@@ -24,9 +24,9 @@ SOFTWARE.
 
 import numpy as np
 import pandas as pd
-
+import time
 from pointers import METADATA_FILE_PATH, INTERMEDIATE_RESULT_FILE_PATH, FINAL_RESULT_FILE_PATH
-
+from model.auxiliary import parse_scenario_name
 
 def percentile(n):
     def percentile_(x):
@@ -88,15 +88,8 @@ def main():
                             index=['Model', 'Scenario', 'Region', 'Variable', 'Unit'])
     result.to_csv(output_path)
 
-
-def parse_scenario_name(scenario):
-    mapa = {'A1B': 'Medium Impact',
-            'A2': 'High Impact',
-            'B1': 'Low Impact'
-            }
-    name = scenario.split('_')[-2]
-    return mapa[name]
-
-
 if __name__ == "__main__":
+    t0 = time.time()
     main()
+    t1 = round((time.time() - t0)/60,2)
+    print("finished after {} minutes".format(t1))
