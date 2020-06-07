@@ -16,7 +16,11 @@ This repository includes some post-processing steps needed to aggregate the orig
 ## Installation
 
 - Clone this repository
-- Install dependencies in setup.py (EnthalpyGradients==1.0, numpy, pandas)
+- Install dependencies
+
+  - `EnthalpyGradients==1.0`
+  - `numpy`
+  - `pandas`
 
 ## FAQ
 
