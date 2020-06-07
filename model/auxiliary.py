@@ -24,8 +24,15 @@ SOFTWARE.
 
 import os
 import pandas as pd
+import numpy as np
 from pointers import WEATHER_DATA_FOLDER_PATH
 
+def percentile(n):
+    def percentile_(x):
+        return np.percentile(x, n)
+
+    percentile_.__name__ = 'percentile_%s' % n
+    return percentile_
 
 def parse_scenario_name(scenario):
     mapa = {'A1B': 'Medium Impact',

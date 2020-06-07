@@ -87,6 +87,7 @@ def calc_total_energy_consumption_per_scenario(data_weighted_average_df, floor_a
             dict_data = pd.DataFrame({"SCENARIO": scenario,
                                       "YEAR": year,
                                       "BUILDING_CLASS": sector,
+                                      "GFA_Bm2": GFA_m2 /1E9,
                                       "TOTAL_HEATING_kWh_m2_yr": total_heating_kWhm2yr,
                                       "TOTAL_COOLING_kWh_m2_yr": total_cooling_kWhm2yr,
                                       "TOTAL_HEATING_EJ": total_heating_EJ,

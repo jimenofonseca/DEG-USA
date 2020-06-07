@@ -22,18 +22,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 '''
 
-import numpy as np
-import pandas as pd
 import time
+
+import pandas as pd
+from model.constants import MODEL_NAME
+from model.auxiliary import parse_scenario_name, percentile
 from pointers import METADATA_FILE_PATH, INTERMEDIATE_RESULT_FILE_PATH, FINAL_RESULT_FILE_PATH
-from model.auxiliary import parse_scenario_name
-
-def percentile(n):
-    def percentile_(x):
-        return np.percentile(x, n)
-
-    percentile_.__name__ = 'percentile_%s' % n
-    return percentile_
 
 
 def main():
@@ -52,13 +46,44 @@ def main():
         ipcc_scenario_name = parse_scenario_name(scenario)
         year_scenario = scenario.split("_")[-1]
         for sector in ['Residential', 'Commercial']:
+            use = "GFA_Bm2"
+            mean_area= data_consumption.loc[sector, scenario][use, 'percentile_50']
+            est_97_5 = data_consumption.loc[sector, scenario][use, 'percentile_97.5']
+            est_2_5 = data_consumption.loc[sector, scenario][use, 'percentile_2.5']
+
+            dict_mean = {'Model': MODEL_NAME,
+                         'Region': 'USA',
+                         'Unit': 'bn m2/yr',
+                         'Variable': 'Energy Service|Buildings|' + sector +'|Floor Space',
+                         'Scenario': ipcc_scenario_name + ' - 50th percentile',
+                         'Year': year_scenario,
+                         'Value': mean_area,
+                         }
+            dict_min = {'Model': MODEL_NAME,
+                        'Region': 'USA',
+                        'Unit': 'bn m2/yr',
+                        'Variable': 'Energy Service|Buildings|' + sector +'|Floor Space',
+                        'Scenario': ipcc_scenario_name + ' - 2.5th percentile',
+                        'Year': year_scenario,
+                        'Value': est_2_5,
+                        }
+            dict_max = {'Model': MODEL_NAME,
+                        'Region': 'USA',
+                        'Unit': 'bn m2/yr',
+                        'Variable': 'Energy Service|Buildings|' + sector +'|Floor Space',
+                        'Scenario': ipcc_scenario_name + ' - 97.5th percentile',
+                        'Year': year_scenario,
+                        'Value': est_97_5,
+                        }
+            dataframe = pd.DataFrame([dict_mean, dict_min, dict_max])
+            final_df = pd.concat([final_df, dataframe], ignore_index=True)
             for name, use in zip(['Heating', 'Cooling'],
                                  ['TOTAL_HEATING_EJ', 'TOTAL_COOLING_EJ']):
                 mean_EJ = data_consumption.loc[sector, scenario][use, 'percentile_50']
                 est_97_5_EJ = data_consumption.loc[sector, scenario][use, 'percentile_97.5']
                 est_2_5_EJ = data_consumption.loc[sector, scenario][use, 'percentile_2.5']
 
-                dict_mean = {'Model': 'DEG-USA 1.0',
+                dict_mean = {'Model': MODEL_NAME,
                              'Region': 'USA',
                              'Unit': 'EJ_yr',
                              'Variable': 'Final Energy|Buildings|' + sector + '|' + name + '|Space',
@@ -66,7 +91,7 @@ def main():
                              'Year': year_scenario,
                              'Value': mean_EJ,
                              }
-                dict_min = {'Model': 'DEG-USA 1.0',
+                dict_min = {'Model': MODEL_NAME,
                             'Region': 'USA',
                             'Unit': 'EJ_yr',
                             'Variable': 'Final Energy|Buildings|' + sector + '|' + name + '|Space',
@@ -74,7 +99,7 @@ def main():
                             'Year': year_scenario,
                             'Value': est_2_5_EJ,
                             }
-                dict_max = {'Model': 'DEG-USA 1.0',
+                dict_max = {'Model': MODEL_NAME,
                             'Region': 'USA',
                             'Unit': 'EJ_yr',
                             'Variable': 'Final Energy|Buildings|' + sector + '|' + name + '|Space',
@@ -88,8 +113,9 @@ def main():
                             index=['Model', 'Scenario', 'Region', 'Variable', 'Unit'])
     result.to_csv(output_path)
 
+
 if __name__ == "__main__":
     t0 = time.time()
     main()
-    t1 = round((time.time() - t0)/60,2)
+    t1 = round((time.time() - t0) / 60, 2)
     print("finished after {} minutes".format(t1))
