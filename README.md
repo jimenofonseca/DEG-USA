@@ -7,6 +7,8 @@ Forecasting model of building energy consumption for the USA (part of the 6th IP
 
 The forecasting model is based on the publication of [`Fonseca et al., 2020`](https://doi.org/10.1016/j.apenergy.2019.114458) which includes forecasts for over 100 cities across the United States and for multiple scenarios of climate change.
 
+![summary](https://github.com/JIMENOFONSECA/DEG-USA/blob/master/images/summary.PNG)
+
 This repository includes some post-processing steps needed to aggregate the original results of `Fonseca et al., 2020` at the national level (as requested by the IPCC database). These included:
 
 1. Estimation of a weighted average of specific thermal energy consumption across different climatic regions. The weight is the built area per region. This estimation is carried out for every scenario of climate change described in `Fonseca et al., 2020`.
